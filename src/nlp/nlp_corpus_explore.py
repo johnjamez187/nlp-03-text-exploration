@@ -62,32 +62,48 @@ LOG.info("Logger configured.")
 # Each document includes a category and text.
 
 corpus: list[dict[str, str]] = [
-    # Dogs
-    {"category": "dog", "text": "A dog barks loudly."},
-    {"category": "dog", "text": "The puppy runs in the yard."},
-    {"category": "dog", "text": "A canine wears a leash."},
-    {"category": "dog", "text": "The kennel holds the dog."},
-    {"category": "dog", "text": "The dog ran across the yard."},
-    {"category": "dog", "text": "The puppy ran across the yard."},
-    # Cats
-    {"category": "cat", "text": "A cat sleeps quietly."},
-    {"category": "cat", "text": "The kitten plays with yarn."},
-    {"category": "cat", "text": "A feline purrs softly."},
-    {"category": "cat", "text": "The cat has whiskers."},
-    {"category": "cat", "text": "The cat slept near the window."},
-    {"category": "cat", "text": "The kitten slept near the window."},
-    # Cars
-    {"category": "car", "text": "A car drives on the road."},
-    {"category": "car", "text": "The sedan parks in the garage."},
-    {"category": "car", "text": "A vehicle has four wheels."},
-    {"category": "car", "text": "The car moves down the highway."},
-    {"category": "car", "text": "The car stopped near the garage."},
-    {"category": "car", "text": "The sedan stopped near the garage."},
-    # Trucks
-    {"category": "truck", "text": "A truck carries cargo."},
-    {"category": "truck", "text": "The pickup pulls a trailer."},
-    {"category": "truck", "text": "The engine powers the truck."},
-    {"category": "truck", "text": "The truck hauls heavy loads."},
+    # Quarterback
+    {
+        "category": "quarterback",
+        "text": "Patrick Mahomes leads the Kansas City Chiefs offense.",
+    },
+    {
+        "category": "quarterback",
+        "text": "Mahomes throws touchdown passes to his receivers.",
+    },
+    {
+        "category": "quarterback",
+        "text": "The quarterback reads the defense before passing.",
+    },
+    {"category": "quarterback", "text": "Mahomes creates plays under pressure."},
+    {"category": "quarterback", "text": "The Chiefs quarterback leads scoring drives."},
+    # Receiving
+    {"category": "receiving", "text": "Travis Kelce catches passes for the Chiefs."},
+    {"category": "receiving", "text": "The tight end gains yards after the catch."},
+    {
+        "category": "receiving",
+        "text": "Chiefs receivers create separation from defenders.",
+    },
+    {"category": "receiving", "text": "Kelce catches important passes on third down."},
+    {"category": "receiving", "text": "The Chiefs passing attack produces touchdowns."},
+    # Rushing
+    {"category": "rushing", "text": "The Chiefs running backs gain rushing yards."},
+    {"category": "rushing", "text": "The offensive line creates running lanes."},
+    {
+        "category": "rushing",
+        "text": "Kansas City uses rushing plays to control possession.",
+    },
+    {"category": "rushing", "text": "The running back breaks tackles for extra yards."},
+    {
+        "category": "rushing",
+        "text": "The Chiefs rushing offense supports the passing game.",
+    },
+    # Defense
+    {"category": "defense", "text": "Chris Jones pressures opposing quarterbacks."},
+    {"category": "defense", "text": "The Chiefs defense forces turnovers."},
+    {"category": "defense", "text": "Kansas City defenders tackle opposing players."},
+    {"category": "defense", "text": "The defensive line records sacks."},
+    {"category": "defense", "text": "The Chiefs defense prevents touchdowns."},
 ]
 
 # Show results
@@ -226,7 +242,7 @@ for doc in corpus:
                 co_occurrence_dict[token].append(ctx)
 
 # Show results
-for target in ["dog", "cat", "car", "truck"]:
+for target in ["mahomes", "kelce", "rushing", "defense"]:
     print(f"\nContext for '{target}':")
     print(co_occurrence_dict[target][:10])
 
@@ -276,14 +292,14 @@ print(bigram_freq_df.head(10))
 print("IMPORTANT: Close chart window to continue execution.")
 
 # Define a new DataFrame that filters the category frequency DataFrame
-# to get the top 5 tokens for the "dog" category.
-dog_df = category_freq_df.filter(pl.col("category") == "dog").head(5)
+# Get the top 5 most frequent tokens in the quarterback category.
+quarterback_df = category_freq_df.filter(pl.col("category") == "quarterback").head(5)
 
 # Create a figure that is 8 inches wide and 4 inches tall
 plt.figure(figsize=(8, 4))
 
 # Add a bar chart to the figure using the tokens as the x-axis and their frequencies as the y-axis.
-plt.bar(dog_df["token"], dog_df["len"])
+plt.bar(quarterback_df["token"], quarterback_df["len"])
 
 # Define the x-axis tick parameters to rotate the labels by 45 degrees for better readability.
 # The gca() function gets the current axes of the plot, and tick_params() is used to set the rotation of the x-axis labels.
@@ -291,7 +307,7 @@ ax = plt.gca()
 ax.tick_params(axis="x", labelrotation=45)
 
 # Set the title and labels for the axes of the plot.
-plt.title("Case Example: Top Tokens (Dog Category)\n(Close this window to continue)")
+plt.title("Kansas City Chiefs: Top Quarterback Terms\n(Close this window to continue)")
 plt.xlabel("Token")
 plt.ylabel("Frequency")
 
@@ -307,16 +323,22 @@ plt.show()
 # Section 10. Interpret Results and Identify Patterns
 # ============================================================
 
-print("\nCASE GENERAL OBSERVATIONS:")
+print("\nKANSAS CITY CHIEFS CORPUS OBSERVATIONS:")
 
-print("- Tokens cluster by category (dog, cat, car, truck).")
-print("- Words that appear in similar contexts behave similarly.")
-print("- Co-occurrence reveals contextual relationships between words.")
-print("- Bigrams capture local structure beyond single tokens.")
-print("- Patterns emerge before any machine learning is applied.")
+print("- The corpus contains 20 football-related documents.")
+print("- Documents are grouped into four football categories.")
+print("- Quarterback text emphasizes Mahomes, passing, and offense.")
+print("- Receiving text emphasizes Kelce, catches, and passes.")
+print("- Rushing text focuses on running plays and yardage.")
+print("- Defense text emphasizes pressure, turnovers, and sacks.")
 
-print("\nYOURNAME SPECIFIC OBSERVATIONS:")
-print("TODO")
+print("\nJOHN JAMES SPECIFIC OBSERVATIONS:")
+
+print("- Token frequency identifies recurring football terminology.")
+print("- Category comparisons reveal differences between positions.")
+print("- Co-occurrence shows relationships between football terms.")
+print("- Bigrams identify commonly occurring word pairs.")
+print("- These patterns demonstrate how NLP can analyze sports text.")
 
 
 # ============================================================
