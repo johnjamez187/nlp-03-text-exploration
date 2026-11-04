@@ -12,8 +12,13 @@ def test_corpus_has_token_and_context_features(monkeypatch, tmp_path):
 
     result = runpy.run_module("nlp.nlp_corpus_explore", run_name="__main__")
 
-    assert len(result["corpus"]) == 22
-    assert set(result["top_per_category_dict"]) == {"dog", "cat", "car", "truck"}
+    assert len(result["corpus"]) == 20
+    assert set(result["top_per_category_dict"]) == {
+        "quarterback",
+        "receiving",
+        "rushing",
+        "defense",
+    }
     assert result["tokenize"]("The DOG, ran!") == ["the", "dog", "ran"]
-    assert ("dog", "ran") in result["bigrams_list"]
-    assert "ran" in result["co_occurrence_dict"]["dog"]
+    assert ("patrick", "mahomes") in result["bigrams_list"]
+    assert "mahomes" in result["co_occurrence_dict"]["patrick"]
